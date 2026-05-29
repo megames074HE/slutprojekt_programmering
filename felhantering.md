@@ -35,7 +35,7 @@ Det händer när programmet är bara för Plus medlemmar. Ange en NPO Plus cooki
 
 Det händer när man har matat in fel url struktur för en säsong. Använd alltid en sånt här struktur "https://npo.nl/start/serie/de-slimste-mens/afleveringen Eller https://npo.nl/start/serie/de-slimste-mens/afleveringen/seizoen-29" när man ska ladda ner en säsong med säsongsnummer i url.
 
-## Drm downloader
+## Flask app
 
 ### Kända fel:
 
@@ -53,4 +53,5 @@ Den fungerar inte för att den inte finns :)
 
 ### No programs found or random error occurred!
 
-Händer när man har skrivit programnamnet fel eller om programmet inte finns. Försok igen genom att klicka på "Go Back" knappen. 
+Händer när man har skrivit programnamnet fel eller om programmet inte finns. Försok igen genom att klicka på "Go Back" knappen.
+
