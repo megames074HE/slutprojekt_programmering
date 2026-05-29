@@ -27,15 +27,15 @@ Med Meflix Drm downloader kan man ladda ner tv program från NPO start.
 
 ### Innehåll
 
-* [Användning av Drm Downloader](#Användning av Drm Downloader)
-* [Användning av Flask app](#Användning av Flask app)
+* [Användning av Drm Downloader](#Användning-av-Drm-Downloader)
+* [Användning av Flask app](#Användning-av-Flask-app)
 
 ### Användning av Drm Downloader
 
 Där finns två typer av Drm Downloader:
 
-* [En för att ladda ner ett avsnitt](#Ladda ner ett avsnitt)
-* [En för att ladda ner en hel säsong](#Ladda ner en säsong)
+* [En för att ladda ner ett avsnitt](#Ladda-ner-ett-avsnitt)
+* [En för att ladda ner en hel säsong](#Ladda-ner-en-säsong)
 
 #### Ladda ner ett avsnitt
 
