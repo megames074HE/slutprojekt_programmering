@@ -90,7 +90,12 @@ För att ändra konfiguration i Flask öppnar man filen "app.py" i en text eller
 
 #### Ändra port på webbsidan
 
-För att ändra porten på webbsidan ska man gå till rad "254". Där ser man följande kod snippet: ```app.run(host='0.0.0.0')``` 
+För att ändra porten på webbsidan ska man gå till rad 254. Där ser man följande kod snippet: ```app.run(host='0.0.0.0')``` 
 För att ändra porten anger man ```port=<port>```. Exempel: ```app.run(host='0.0.0.0', port=8000)```
 
+#### Debug-läge
+
+Om man vill ändra koden i "app.py" kan det vara användbart att ha debug-läge på. Det gör att sidan laddas om automatisk när man ändrar nått i koden.
+För att ändra debug-läge går man till rad 254 i koden. Där ser man följande kod snippet: ```app.run(host='0.0.0.0')``` 
+För att ändra debug-läge anger man ```debug=True```. Exempel: ```app.run(host='0.0.0.0', debug=True)```
 
