@@ -105,4 +105,47 @@ För att ändra debug-läge går man till rad 254 i koden. Där ser man följand
 För att ändra debug-läge anger man ```debug=True```. Exempel: ```app.run(host='0.0.0.0', debug=True)```
 
 
+### Konfigurera NPO plus cookie
 
+Om man ska ladda ner NPO Plus content eller vill ta bort geo restriction måste man ange en NPO Plus cookie. 
+
+1. Man loggar in på NPO start med sitt NPO plus konto. Därefter öppnar man inspector element och går till fliken "Application". 
+![inspector_element](/readme_images/inspector_element.png)
+2. I Application ska man välja Cookies. Därefter ska man leta efter cookien som heter "__Secure-next-auth.session-token".
+![about_cookie](/readme_images/about_cookie.png)
+3. kopiera cookien och klistra in den. Programmet frågar om man vill spara cookien. Skriv "Y" om du vill.
+![output8](/readme_images/output8.png)
+
+Nu har du sparat cookie. Vill du ändra cookie? Gör så här.
+
+1. När man kör koden "NPO_downloader.py" eller "NPO_season_downloader.py" frågar programmet dig om du vill ändra eller använda sparad cookie. Skriv "E" för att ändra cookien. 
+![output9](/readme_images/output9.png)
+2. Följ de föregående stegen igen för att uppdatera cookien.
+
+
+### Konfigurera för nedladdning
+
+Om man vill ladda ner med programmet måste man ta bort vissa kommentarer i python koden. Man ska också ha programmen "N_m3u8DL-CLI_v3.0.2.exe" och "ffmpeg.exe" i samma directory som python filen.
+
+#### NPO_downloader.py
+
+1. Gå till rad 7 och ange en download location: ```download_path = "C:\\Path\\To\\Media\\location\\"```
+
+2. Gå till rad 52 och ta bort "#"
+
+#### NPO_season_downloader.py
+
+1. Gå till rad 7 och ange en download location: ```download_path = "C:\\Path\\To\\Media\\location\\"```
+
+2. Gå till rad 93 och 94 och ta bort "#". 
+
+
+## Felhantering
+
+Gå till instruktioner för Felhantering: 
+
+## Funktion av programmet
+
+Gå till funktion av Drm downloader: [Funktion av Drm downloader](/Drm%20downloader/funktion.md)
+
+Gå till funktion av Flask app: 
