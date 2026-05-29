@@ -64,7 +64,7 @@ Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar
 1. kör python filen "NPO_season_downloader.py". Då visas följande output:
     ![output4](/readme_images/output4.png)
 2. Man klistrar in länken till programmet som man vill ladda ner.
-    länken måste ha följande struktur: "https://npo.nl/start/serie/de-slimste-mens/afleveringen"
+    länken måste ha följande struktur: "https://npo.nl/start/serie/de-slimste-mens/afleveringen". Du kan också klistrar in en länk som redan innehåller säsong som man ska ladda ner "https://npo.nl/start/serie/de-slimste-mens/afleveringen/seizoen-29".
 3. Då visas följande output. Här ska man klistra in sin NPO start plus cookie. se [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie).
 För att hoppa över detta klickar man bara på Enter.
     ![output2](/readme_images/output2.png)
