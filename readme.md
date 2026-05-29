@@ -50,7 +50,8 @@ Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar
 3. Då visas följande output. Här ska man klistra in sin NPO start plus cookie. se [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie).
 För att hoppa över detta klickar man bara på Enter.
     ![output2](/readme_images/output2.png)
-4. 
+4. Man får fram följande output. Detta är dekrypteringsnyckel och videoströmmen som man behöver för att ladda ner videon.
+    ![output3](/readme_images/output3.png)
 
 
 #### Ladda ner en säsong
