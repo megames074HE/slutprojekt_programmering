@@ -87,7 +87,7 @@ for i in range(len(all_season_episodes)):
 
     download_location = f'{download_path}series\\{stream_title.replace(" ", "_")}\\Season_{stream_season_number}'
 
-    print(f"[INFO] Media name: {media_name}, Media decryption key: {stream_widevine_key}")
+    print(f"[INFO] Media name: {media_name}, Media decryption key: {stream_widevine_key}, MPD stream: {mpd_url}")
 
     ## Downloads at highest quality and decrypts automatically
     #subprocess.run(

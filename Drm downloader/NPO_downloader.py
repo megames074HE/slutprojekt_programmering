@@ -38,7 +38,7 @@ slug = video_url.split("/")[-1]
 
 ## Gets all the data needed for downloading from npo_widevine.py
 mpd_url, stream_widevine_key, media_name, stream_season_number, stream_title = npo_widevine(slug, cookie)
-print(f"[INFO] Media name: {media_name}, Media decryption key: {stream_widevine_key}")
+print(f"[INFO] Media name: {media_name}, Media decryption key: {stream_widevine_key}, MPD stream: {mpd_url}")
 
 ## Makes a folder for the downloaded show. Format: "*\\series\\SHOW_NAME\\SEASON_X"
 try:
