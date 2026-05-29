@@ -29,6 +29,8 @@ Med Meflix Drm downloader kan man ladda ner tv program från NPO start.
 
 * [Användning av Drm Downloader](#Användning-av-Drm-Downloader)
 * [Användning av Flask app](#Användning-av-Flask-app)
+* [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie)
+* [Konfigurera för nedladdning](#Konfigurera-för-nedladdning)
 
 ### Användning av Drm Downloader
 
@@ -39,7 +41,18 @@ Där finns två typer av Drm Downloader:
 
 #### Ladda ner ett avsnitt
 
+Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar inte ner något nu. Se [Konfigurera för nedladdning](#Konfigurera-för-nedladdning)
+
+1. Kör python filen "NPO_downloader.py". Då visas följande output:
+    ![output1](/readme_images/output1.png)
+2. Man klistrar in länken till programmet som man vill ladda ner. 
+   Länken måste ha följande struktur: "https://npo.nl/start/afspelen/de-slimste-mens_1240"
+
+
+
 #### Ladda ner en säsong
+
+Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar inte ner något nu. Se [Konfigurera för nedladdning](#Konfigurera-för-nedladdning)
 
 
 
