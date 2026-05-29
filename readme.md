@@ -125,7 +125,7 @@ Nu har du sparat cookie. Vill du ändra cookie? Gör så här.
 
 ### Konfigurera för nedladdning
 
-Om man vill ladda ner med programmet måste man ta bort vissa kommentarer i python koden. Man ska också ha programmen "N_m3u8DL-CLI_v3.0.2.exe" och "ffmpeg.exe" i samma directory som python filen.
+Om man vill ladda ner med programmet måste man ta bort vissa kommentarer i python koden. Man ska också ha programmen "N_m3u8DL-RE.exe", "packager-win-x64.exe" och "ffmpeg.exe" i samma directory som python filen.
 
 #### NPO_downloader.py
 

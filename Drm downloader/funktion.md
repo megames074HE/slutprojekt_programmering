@@ -67,7 +67,14 @@ except FileExistsError:
     pass
 ```
 
+Programmet tilldelar download location som än sträng till variabeln "download_location". ```download_location = f'{download_path}series\\{stream_title.replace(" ", "_")}\\Season_{stream_season_number}'```
 
+Till slut använder programmet subprocess.run() för att köra ett extern program som laddar och sparar videostreamen. Programmet är "N_m3u8DL-RE" 
+och det används för att ladda ner och dekryptera videoinnehåll. Videon laddas ner med mpd streamen, dekrypterings nyckel, download location och fil namnet.
+Den använder googles shaka packager för dekryptering av streamen. Den skickar också http headers för att efterlikna en webbsida. Fil namnet har följande strukturen: ```<programnamn>-S00E00-<avsnittnamn>.mkv ```
+```
+subprocess.run(f'N_m3u8DL-RE "{mpd_url}" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" -H "Accept: */*" -H "Origin: https://npo.nl" -H "Referer: https://npo.nl/" --key {stream_widevine_key} --use-shaka-packager -M format=mkv --auto-select --save-dir {download_location} --save-name {media_name}')
+```
 
 
 ## Npo_widevine
