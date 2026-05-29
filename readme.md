@@ -33,12 +33,14 @@ Med Meflix Drm downloader kan man ladda ner tv program från NPO start.
 * [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie)
 * [Konfigurera för nedladdning](#Konfigurera-för-nedladdning)
 
+
 ### Användning av Drm Downloader
 
 Där finns två typer av Drm Downloader:
 
 * [En för att ladda ner ett avsnitt](#Ladda-ner-ett-avsnitt)
 * [En för att ladda ner en hel säsong](#Ladda-ner-en-säsong)
+
 
 #### Ladda ner ett avsnitt
 
@@ -81,6 +83,7 @@ Info: Flask appen är konfigurerad för att inte ladda ner videor just nu. Den l
     Röda pilen visar datorns loopback ip, som endast fungerar på din egen dator.
 3. Om man vill ändra porten, debug-läge eller något annat se [Ändra Flask konfiguration](#Ändra-Flask-konfiguration)
 
+
 ### Ändra Flask konfiguration
 
 För att ändra konfiguration i Flask öppnar man filen "app.py" i en text eller kod editor.
@@ -88,14 +91,18 @@ För att ändra konfiguration i Flask öppnar man filen "app.py" i en text eller
 * [Ändra port på webbsidan](#Ändra-port-på-webbsidan)
 * [Debug-läge](#Debug-läge)
 
+
 #### Ändra port på webbsidan
 
 För att ändra porten på webbsidan ska man gå till rad 254. Där ser man följande kod snippet: ```app.run(host='0.0.0.0')``` 
 För att ändra porten anger man ```port=<port>```. Exempel: ```app.run(host='0.0.0.0', port=8000)```
+
 
 #### Debug-läge
 
 Om man vill ändra koden i "app.py" kan det vara användbart att ha debug-läge på. Det gör att sidan laddas om automatisk när man ändrar nått i koden.
 För att ändra debug-läge går man till rad 254 i koden. Där ser man följande kod snippet: ```app.run(host='0.0.0.0')``` 
 För att ändra debug-läge anger man ```debug=True```. Exempel: ```app.run(host='0.0.0.0', debug=True)```
+
+
 
