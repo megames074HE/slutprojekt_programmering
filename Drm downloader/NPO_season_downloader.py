@@ -78,7 +78,7 @@ for i in range(len(all_season_episodes)):
 
     ## Gets all the data needed for downloading from npo_widevine.py
     mpd_url, stream_widevine_key, media_name, stream_season_number, stream_title = npo_widevine(slug, cookie)
-    print(media_name)
+
     ## Makes a folder for the downloaded show. Format: "*\\series\\SHOW_NAME\\SEASON_X"
     try:
         os.makedirs(f'{download_path}series\\{stream_title.replace(" ", "_")}\\Season_{stream_season_number}')
@@ -86,6 +86,8 @@ for i in range(len(all_season_episodes)):
         pass
 
     download_location = f'{download_path}series\\{stream_title.replace(" ", "_")}\\Season_{stream_season_number}'
+
+    print(f"[INFO] Media name: {media_name}, Media decryption key: {stream_widevine_key}")
 
     ## Downloads at highest quality and decrypts automatically
     #subprocess.run(
