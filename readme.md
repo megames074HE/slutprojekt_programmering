@@ -51,14 +51,24 @@ Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar
 För att hoppa över detta klickar man bara på Enter.
     ![output2](/readme_images/output2.png)
 4. Man får fram följande output. Detta är dekrypteringsnyckel och videoströmmen som man behöver för att ladda ner videon.
-    ![output3](/readme_images/output3.png)
+    ![output3](/readme_images/output3.png) Om man fick en error se då [Felhantering](#Felhantering)
 
 
 #### Ladda ner en säsong
 
 Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar inte ner något nu. Se [Konfigurera för nedladdning](#Konfigurera-för-nedladdning)
 
+1. kör python filen "NPO_season_downloader.py". Då visas följande output:
+    ![output4](/readme_images/output4.png)
+2. Man klistrar in länken till programmet som man vill ladda ner.
+    länken måste ha följande struktur: "https://npo.nl/start/serie/de-slimste-mens/afleveringen"
+3. Då visas följande output. Här ska man klistra in sin NPO start plus cookie. se [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie).
+För att hoppa över detta klickar man bara på Enter.
+    ![output2](/readme_images/output2.png)
+4. Nu ska man välja en säsong. Det visas en lista med alla säsongsnummer.
+    ![output5](/readme_images/output5.png)
+5. Efter att man har valt en säsong kommer programmet att skriva ut alla avsnitt i säsongen.
+    ![output6](/readme_images/output6.png) Om man fick en error se då [Felhantering](#Felhantering)
 
 
-
-
+### Användning av Flask app
