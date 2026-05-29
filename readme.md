@@ -7,7 +7,7 @@ Med Meflix Drm downloader kan man ladda ner tv program från NPO start.
 * [Ladda ner och installera Meflix](#Ladda-ner-och-installera-Meflix)
 * [Hur ska man använda programmet](#Hur-ska-man-använda-programmet)
 * [Felhantering](#Felhantering)
-* [Funktion av programmet](#Funktion-av-programmet)
+* [Hur är programmet byggd](#hur-är-programmet-byggd)
 
 
 ## Ladda ner och installera Meflix
@@ -144,8 +144,8 @@ Om man vill ladda ner med programmet måste man ta bort vissa kommentarer i pyth
 
 Gå till instruktioner för Felhantering: [Felhantering](/felhantering.md)
 
-## Funktion av programmet
+## Hur är programmet byggd
 
-Gå till funktion av Drm downloader: [Funktion av Drm downloader](/Drm%20downloader/funktion.md)
+Gå till funktion av Drm downloader: [Hur är Drm Downloader byggd](/Drm%20downloader/funktion.md)
 
-Gå till funktion av Flask app: [Funktion av Flask app](/Flask%20app/funktion.md)
+Gå till funktion av Flask app: [Hur är Flask app byggd](/Flask%20app/funktion.md)
