@@ -29,6 +29,7 @@ Med Meflix Drm downloader kan man ladda ner tv program från NPO start.
 
 * [Användning av Drm Downloader](#Användning-av-Drm-Downloader)
 * [Användning av Flask app](#Användning-av-Flask-app)
+* [Ändra Flask konfiguration](#Ändra-Flask-konfiguration)
 * [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie)
 * [Konfigurera för nedladdning](#Konfigurera-för-nedladdning)
 
@@ -75,8 +76,21 @@ För att hoppa över detta klickar man bara på Enter.
 
 Info: Flask appen är konfigurerad för att inte ladda ner videor just nu. Den laddar istället ner en testvideo. Flask appen är hostad på "https://slutprojekt.megames.se" som en WSGI app.
 
-
-
 1. kör python filen "app.py". Då visas följande output:![output7](/readme_images/output7.png)
 2. Öppna IP adressen i webbläsaren. Gröna pilen visar en lokal ip-adress som alla apparater inom huset kan öppna.
     Röda pilen visar datorns loopback ip, som endast fungerar på din egen dator.
+3. Om man vill ändra porten, debug-läge eller något annat se [Ändra Flask konfiguration](#Ändra-Flask-konfiguration)
+
+### Ändra Flask konfiguration
+
+För att ändra konfiguration i Flask öppnar man filen "app.py" i en text eller kod editor.
+
+* [Ändra port på webbsidan](#Ändra-port-på-webbsidan)
+* [Debug-läge](#Debug-läge)
+
+#### Ändra port på webbsidan
+
+För att ändra porten på webbsidan ska man gå till rad "254". Där ser man följande kod snippet: ```app.run(host='0.0.0.0')``` 
+För att ändra porten anger man ```port=<port>```. Exempel: ```app.run(host='0.0.0.0', port=8000)```
+
+
