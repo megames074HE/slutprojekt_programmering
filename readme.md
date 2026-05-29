@@ -47,7 +47,10 @@ Info: Filen är nu konfigurerad för att hämta dekrypteringsnycklar. Den laddar
     ![output1](/readme_images/output1.png)
 2. Man klistrar in länken till programmet som man vill ladda ner. 
    Länken måste ha följande struktur: "https://npo.nl/start/afspelen/de-slimste-mens_1240"
-
+3. Då visas följande output. Här ska man klistra in sin NPO start plus cookie. se [Konfigurera NPO plus cookie](#Konfigurera-NPO-plus-cookie).
+För att hoppa över detta klickar man bara på Enter.
+    ![output2](/readme_images/output2.png)
+4. 
 
 
 #### Ladda ner en säsong
