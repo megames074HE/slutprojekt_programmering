@@ -28,7 +28,7 @@ Jag tycker att om jag fortsätter planera och har en todo list att allt kommer b
 
 ## Negativa erfarenheter
 
-Det som gick lite mindre bra var att jag fokuser för mycket på detaljerna. Så därför hade jag inte tid att hinna med login sidan till exempel. 
+Det som gick lite mindre bra var att jag fokusera för mycket på detaljerna. Så därför hade jag inte tid att hinna med login sidan till exempel. 
 Jag använder min hemmadator och skoldator på samma github konto så jag kan jobba på hemmadatorn och skoldatorn på samma github repo. Men en gång gick det lite fel. Av någon anledning hade några filer återställs till äldre versioner. 
 Men som tur är gör jag back ups av allt så det blev fixad. 
 
