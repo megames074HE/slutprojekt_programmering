@@ -72,3 +72,9 @@ För att hoppa över detta klickar man bara på Enter.
 
 
 ### Användning av Flask app
+
+Info: Flask appen är konfigurerad för att inte ladda ner videor just nu. Den laddar istället ner en testvideo. Flask appen är hostad på "https://slutprojekt.megames.se" som en WSGI app.
+
+
+
+1. kör python filen 
