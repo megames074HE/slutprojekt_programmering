@@ -313,4 +313,52 @@ Programmet hämta MPD urlen från "stream_data_url".
 Programmet hämtar DASH manifestet som innehåller information om video, ljud och DRM data. Det görs med en get request till MPD urlen. Innehållet är hämtat som text.
 ```dash_contents = requests.get(mpd_url).text```
 
-Efter det ska programmet hämta en DRM relaterade header från Dash manifestet
+Efter det ska programmet hämta en DRM relaterade header från Dash manifestet. Headern heter "X-Custom-Data" och används till Widevine licensförfrågning. 
+```http_token = stream_data_url['drm']['httpHeaders']['X-Custom-Data']```
+
+Nu ska programmet extrahera pssh data från dash manifested. Programmet använder regex för att hitta innehållet mellan ```<cenc:pssh>...</cenc:pssh>```. Pssh innehåller DRM information som används av Widevine.
+```pssh_data = re.findall(r"<cenc:pssh>(.*?)</cenc:pssh>", dash_contents)[1]```
+
+Programmet skapar ett pssh objekt av den extraherade pssh datan. Datan används senare för licenseförfrågningar och dekryptering. 
+```pssh = PSSH(pssh_data)```
+
+Nu ska programmet laddar .wvd fil. Det är en "Widevine device" fil som används för DRM autentisering. 
+```device = Device.load("cdm.wvd")```
+
+Efter det skapar programmet ett CDM objekt av filen. CDM är en content decryption module och används för att kommunicera med DRM servers, verifiera rättigheter och dekryptera krypterad videoinnehåll.
+Programmet öppnar efter det en CDM session som returnerar ett sessions-ID. 
+```
+cdm = Cdm.from_device(device)
+
+session_id = cdm.open()
+```
+
+Nu skapar programmet en license challenge baserat på session_id från cdm och pssh. Den används senare för att skickas till licensserven.
+```challenge = cdm.get_license_challenge(session_id, pssh)```
+
+Programmet skapar en DRM header nu som används till autentisering. "X-Custom-Data" används för det. 
+```headers = {"X-Custom-Data": http_token}```
+
+Programmet skickar en licensförfrågan som innehåller challenge data och headern med "X-Custom-Data". Response av requesten är en Widevine Licens
+```    
+licence = requests.post("https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication", data=challenge,
+                            headers=headers)
+```
+
+Programmet kollar status på requesten och kopplar licensen till CDM sessionen. Detta gör det möjligt att extrahera dekrypteringsnycklar så att streamen kan dekrypteras.
+```
+    licence.raise_for_status()
+
+    cdm.parse_license(session_id, licence.content)
+```
+
+Sista delen av koden hämta alla nycklar för avsnittet. Den kan innehålla flera typer av nycklar men typen som programmet behöver är "CONTENT". Den är till dekryptering av video streams. Programmet skapar en sträng med nyckeln och stänger cdm session.
+till slut returnera den allt data till huvudprogrammet. 
+```
+    for key in cdm.get_keys(session_id):
+        if key.type == "CONTENT":
+            #print(f"KEY FOUND: {key.kid.hex}:{key.key.hex()}")
+            stream_widevine_key = f"{key.kid.hex}:{key.key.hex()}"
+            cdm.close(session_id)
+            return(mpd_url, stream_widevine_key, media_name, stream_season_number, stream_title)
+```
