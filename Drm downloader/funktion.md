@@ -4,7 +4,7 @@
 
 * [NPO_downloader.py](#npo_downloader)
 * NPO_season_downloader.py
-* npo_widevine.py
+* [npo_widevine.py](#Npo_widevine)
 * Flödesschema
 
 
@@ -47,5 +47,28 @@ else:
                 print("\nCookie saved!")
 ```
 
+Nu ska programmet tilldelas en värde till variabeln "slug". Npo använder "slugs" för alla apier. en slug ser ut så här: "over-mijn-lijk".
+Programmet får sluggen genom att den plockar ut sista delen av värdet av variabeln "video_url". Alltså den url som användaren har matat in. ```slug = video_url.split("/")[-1]```
 
+Nu anropar programmet en funktion i filen "npo_widevine.py" se [hur npo_widevine.py är byggd](#Npo_widevine). Programmet gör en anropen till funktionen med variabeln "slug" och "cookie".
+Funktionen returnerar flera värden samtidigt "mpd_url", "stream_widevine_key", "media_name", "stream_season_number" och "stream_title". Allt data som behövs för att ladda ner en avsnitt.
+Sen skriver programmer ut "media_name", "stream_widevine_key", "mpd_url". 
+```
+mpd_url, stream_widevine_key, media_name, stream_season_number, stream_title = npo_widevine(slug, cookie)
+print(f"[INFO] Media name: {media_name}, Media decryption key: {stream_widevine_key}, MPD stream: {mpd_url}")
+```
+
+Efter det försöker programmet skapa en mappstruktur för serien med download_path som rotkatalog. Programmet ersätter alla mellanslag i series namn med "_".
+Om mappen redan finns ska den inte skapa en.
+```
+try:
+    os.makedirs(f'{download_path}series\\{stream_title.replace(" ", "_")}\\Season_{stream_season_number}')
+except FileExistsError:
+    pass
+```
+
+
+
+
+## Npo_widevine
 
