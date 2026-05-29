@@ -78,6 +78,6 @@ Info: Flask appen är konfigurerad för att inte ladda ner videor just nu. Den l
 
 
 1. kör python filen "app.py". Då visas följande output: 
-![output7](/readme_images/output7.png)
+    ![output7](/readme_images/output7.png)
 2. Öppna IP adressen i webbläsaren. Gröna pilen visar en lokal ip-adress som alla apparater inom huset kan öppna.
     Röda pilen visar datorns loopback ip, som endast fungerar på din egen dator.
