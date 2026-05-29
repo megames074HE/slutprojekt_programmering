@@ -12,10 +12,17 @@ Med Meflix Drm downloader kan man ladda ner tv program från NPO start.
 
 ## Ladda ner och installera Meflix
 
-1. Man börjar med att ladda ner alla filer från github. 
-    Det gör man genom att klicka på knappen Code och sen Download zip. 
+1. Man börjar med att ladda ner alla filer från GitHub. 
+    Det gör man genom att klicka på knappen "Code" och sedan välja "Download zip". 
     ![code_button](/readme_images/code_button.png)
     ![download_button](/readme_images/download_button.png)
+
+2. Man öppnar filen med ett valfritt zip-program och extraherar filerna till en valfri plats. 
+
+
+3. Man ska installera alla dependencies, och det gör man med kommandot: ```pip install -r requirements.txt``` Där finns två requirements.txt filer: En i /flask app och en i /Drm downloader. 
+
+
     
 
 
