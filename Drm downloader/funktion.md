@@ -144,7 +144,7 @@ else:
     season = int(input("\nEnter Season Number To Download: "))
 ```
 
-Efter det ska programmet loopar genom alla säsonger och matcha vald säsong som användaren har matas in. När den är hittad hämta programmet GUID och sparar den som en sträng i variabeln "season_guid". GUID används som en identifierare för säsongens api.
+Efter det ska programmet loopar genom alla säsonger och matcha valt säsong som användaren har matas in. När den är hittad hämta programmet GUID och sparar den som en sträng i variabeln "season_guid". GUID används som en identifierare för säsongens api.
 ```
 for i in range(len(all_seasons)):
     if all_seasons[i]['seasonKey'] == str(season):
@@ -214,7 +214,7 @@ except (TypeError, KeyError):
     exit()
 ```
 
-Nu kontrollerar programmet om vald avsnitt är del av en serie eller är en film/dokumentär. 
+Nu kontrollerar programmet om valt avsnitt är del av en serie eller är en film/dokumentär. 
 Om det inte är en serie får variabeln "serie" en boolean värde som är "False". Då blir namnet av videon samma som säsongnamnet och det sparas is en sträng i variabeln "stream_title".
 variabeln "stream_episode_number" får en integer värde av 0 för att där finns bar 1 avsnitt. 
 
@@ -238,14 +238,14 @@ stream_id = stream_id_metadata['productId']
 ```
 
 Om variabeln "series" är True hämtar programmet säsongsinformation. Den skicker en get request till npo's api och det blir sparad in en lista med variabeln "current_series_seasons".
-Nu ska den loopa igenom alla säsonger av vald serie. Den ska matcha rätt säsong och kontrollera om säsongen har en "label" för att få säsongtiteln. Men om label inte innehåller ordet "Seizoen" är det en specielt säsong då används labeln som säsongsnamn. 
+Nu ska den loopa igenom alla säsonger av valt serie. Den ska matcha rätt säsong och kontrollera om säsongen har en "label" för att få säsongtiteln. Men om label inte innehåller ordet "Seizoen" är det en specielt säsong då används labeln som säsongsnamn. 
 Om label saknas används "seasonKey" istället. 
 
 Nu ska den extrahera säsongsnummer och det görs med .split(). Då blir det från det här "Seizoen 1" till det här "1". Säsongsnummer blir sparad i variabeln "stream_season_number".
 
 Efter det ska programmet skapa filnamn. Det görs enligt följande formatet: ```<programnamn>-S00E00-<avsnittnamn>```. Mellanslag ersätts med "_". Variabeln "media_name" får filnamnen som en sträng. 
 
-Om variabeln "series" är False blir "media_name" namnet av vald säsong.
+Om variabeln "series" är False blir "media_name" namnet av valt säsong.
 ```
     if series:
         ## gets season number or name for the current video

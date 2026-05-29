@@ -7,6 +7,8 @@ Programmet är flask baserad och hämtar och visar tv program information från 
 * [def index()](#def-index)
 * [def search_results()](#def-search_results)
 * [def programs()](#def-programs)
+* [def season_data_api](#def-season_data_api)
+* [def file_api()](#def-file_api)
 
 
 
@@ -136,12 +138,12 @@ Programmet kontrollerar om där finns 0 sökresultater. Om det är så får anv�
 
 ### def programs()
 
-På den här sidan får användaren information om vald program. Användaren får information som Bild, sammanfattning och alla säsonger och avsnittet.
+På den här sidan får användaren information om valt program. Användaren får information som Bild, sammanfattning och alla säsonger och avsnittet.
 
 Programmet börjar med att hämta en parameter från urlen. Parameter är en slug som används för att få data från NPO apier. Sluggen blir sparad i variabeln "program_slug".
 ```program_slug = request.args.get('slug')```
 
-Efter det skapar programmet en payload för att göra en get request till NPO program data api. Payloaden byggs med sluggen från användarens vald program.
+Efter det skapar programmet en payload för att göra en get request till NPO program data api. Payloaden byggs med sluggen från användarens valt program.
 ```    
 payload = {
         'seriesSlug': program_slug,
@@ -198,4 +200,89 @@ Efter det kontrollerar om "program_data" har bilder. Cover art bilder kan va tv�
             if image['role'] == "default":
                 image_url = image['url']
                 post_data['items']['image_url'] = image_url
+```
+
+Programmer loopar för alla säsonger i serien. Den kontrollerar om säsong har en "label". Om det finns sparar programmet den i variabeln "program_season_label". Om "program_season_label" är None
+hämtar programmet säsong nummer från key "seasonKey". Efter det sparar programmet säsongslabel i "post_data".
+
+Om där inte finns en "label" för säsongen betyder det att det finns bara 1 säsong. Programmet använder då serie titel som säsongsnamn. Om ordet "nos" finns i serie titeln är det en nyhet program. De använder en annan api för avsnitt och har bara 1 säsong.
+```
+
+    for program_seasons in program_data[3]['state']['data']:
+        print(program_seasons)
+        try:
+            program_season_label = program_seasons['label']
+            print(program_season_label)
+        except:
+            program_season_label = program_seasons['slug'].replace("-", " ")
+
+            ## fix as nos programs doesn't have seasons.
+
+            if "nos" in program_season_label:
+                program_season_label = 1
+                post_data['items']['season_title'].append(program_season_label)
+
+                ## another fix as nos programs does not use the same api for episode as series.
+
+                program_seasons_nos = requests.get(
+                    f"https://npo.nl/start/_next/data/84pYDQb1urckQuRTnDy1_/serie/{program_slug}/afleveringen.json",
+                    params=payload).json()['pageProps']['dehydratedState']['queries'][0]['state']['data']
+
+                # print(program_seasons_nos['guid'])
+                program_season_guid = "nos" + program_seasons_nos['guid']
+                print(program_season_guid)
+                post_data['items']['season_guid'].append(program_season_guid)
+                return render_template('program_info.html', post_data=post_data,
+                                       len=len(post_data['items']['season_title']))
+
+        if program_season_label == None:
+            program_season_label =  f"Seizoen {program_seasons['seasonKey']}"
+
+            
+        post_data['items']['season_title'].append(program_season_label)
+```
+
+Till slut sparar programmet säsongens GUID i "post_data". Den används senare för att få avsnitt information. Och till slut får användaren html filen i webbläsaren med allt data. 
+```
+        program_season_guid = program_seasons['guid']
+        print(program_season_guid)
+        post_data['items']['season_guid'].append(program_season_guid)
+        
+    return render_template('program_info.html', post_data=post_data, len=len(post_data['items']['season_title']))
+```
+
+### def season_data_api()
+
+Den här sidan används som en proxy. Det är gjort för att Npo start api har inte CORS. Javascript koden på "program_info.html" fungerar inte utan CORS. Den här api sparar datan från Npo's api i variabeln "cors_data" och skicka det som JSON.
+
+Programmet kontrollerar också om "season-slug" innehåller ordet "nos". Om det är så använder den en annan api, för att alla nos program använder en anna api.
+```
+    season_guid = request.args.get('season-slug')
+    print('slug '+season_guid)
+
+    if "nos" in season_guid:
+        print('nos program found!')
+        print(f'https://npo.nl/start/api/domain/programs-by-series?includePremiumContent=true&seriesGuid={season_guid.replace("nos", "")}&limit=20&sort=-firstBroadcastDate')
+        cors_data = requests.get(f'https://npo.nl/start/api/domain/programs-by-series?includePremiumContent=true&seriesGuid={season_guid.replace("nos", "")}&limit=20&sort=-firstBroadcastDate').json()
+    else:
+        cors_data = requests.get(f'https://npo.nl/start/api/domain/programs-by-season?ageRestriction=undefined&guid={season_guid}&type=timebound_series&includePremiumContent=true').json()
+
+    return cors_data
+```
+
+### def file_api()
+
+Den här apin används för att skicka filer till användaren. Justnu skicker den samma fil som är en video om anti piracy. Men om man ha Drm downloader här istället får användaren en avsnitt istället. 
+
+Programmet hämtar sluggen från urlen som. Och programmet hämtar valt säsong och avsnitt av skickat formulär data. 
+
+Till slut skicker programmet videon till användaren med filnamn som har följande struktur: ```<slug>-S-0-E-0```
+```
+
+        program_slug = request.args.get('slug')
+
+        selected_season = request.form['selected-season']
+        selected_episode = request.form['selected-episode']
+
+        return send_file("video.mp4", as_attachment=True, download_name=f'{program_slug + "-S-" + selected_season + "-E-" + selected_episode}.mp4')
 ```
