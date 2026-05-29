@@ -1,0 +1,46 @@
+
+<script>
+    
+    var data = {
+        select: 'nothing',
+    {% for i in range(0, len) %}    
+        {{i}}: '{{ post_data['items']['season_guid'][i] }}',
+    {% endfor %}
+    };
+
+    function episodes(amount) {
+        const length = amount; 
+
+        const select = document.getElementById("episodes-list");
+        select.innerHTML = "";
+        for (let i = 0; i < length; i++) {
+            const option = document.createElement("option");
+
+            option.value = i;
+            option.textContent = i + 1;
+
+            select.appendChild(option);
+    }
+
+}
+    function changeText(id) {
+        document.getElementById("episodes-list").innerHTML = '<option>LOADING...</option>';
+        console.log(id);
+        fetch('/season-data-api?season-slug='+data[id])
+        .then( response => response.json() )
+        .then( data => episodes(data[0]['programKey']) )
+         
+    }
+        
+
+
+</script>
+
+<select id="seasons-list" onchange="changeText(this.value);">
+        <option value="select">Select an Season</option>
+    {% for i in range(0, len) %}   
+        <option value="{{i}}">{{ post_data['items']['season_title'][i] }}</option>
+    {% endfor %}
+</select>
+<select id="episodes-list"></select>
+<div id="content"></div>

@@ -1,0 +1,74 @@
+EVERY HTML:
+
+- FIx redundant link aka make an about page and login. but im too lazy
+
+- DONE - Make about page
+
+- make login page
+
+- DONE - make not-npo logo an url
+
+- fix all the urls for github pages
+
+
+INDEX.HTML:
+
+TO KNOW:
+
+    trending cover image needs to be 375x375, and cover text needs to be 256x256. but image doesnt matter changed to highest
+    new programs title image needs to be 128x128 and chose 900x900 for new programs images
+
+
+
+- DONE - change header color if i not like it anymore
+
+- DONE - change npo logo because copyright
+
+- NOT WORTH - make login functional
+
+- DONE - add actual links to header links
+
+- DONE -  change the images to be rendered by python and add links to trending images
+
+- DONE - add correct flask url to form action
+
+- DONE - fix wave errors if those are there.
+
+- DONE - make random trending on reload
+
+- DONE - fix favicon
+
+- DONE - add hover effects to all buttons
+
+- DONE - take extra look add margins and responsive
+
+- DONE (dont know why i put this 2x on the list) - add favicon
+
+- add function so that there are no duplicates in the trending and new_programs
+
+- DONE - add label to flask index
+
+SEARCH-RESULTS.html
+
+- DONE - favicon
+
+- DONE - alt for every image needs to be the slug of the displayed program
+
+- add functionality that if there are no results show a error text instead
+
+PROGRAM_INFO.html
+
+- DONE - change title to episode name
+
+- FORGET THIS NO TRAILERS AVAILABLE ANYMORE FROM NPO - add trailer or promotion video for desktop versions
+
+- fix the episodes not being correct
+
+
+ABOUT.HTML
+
+- fix the github url for the drm downloader
+
+
+
+AT THE END COMPARE THE NON AND FLASK FILES TO SEE IF BOTH HAVE SAME STRUCTURE
