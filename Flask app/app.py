@@ -3,10 +3,8 @@ from flask_cors import CORS
 import requests
 import random
 
-
 app = Flask(__name__)
 CORS(app)
-
 
 ## URLS can basically be changed to everything you want. Did these one because my layout has trending and new programs. But you can have programs from an category displayed as well.
 trending_programs_url = "https://npo.nl/start/api/domain/recommendation-collection?collectionId=trending-anonymous-v0&collectionIndex=1&collectionType=SERIES&includePremiumContent=true&layoutType=RECOMMENDATION&partyId=1%3Amjue2oeb%3A16f959774071426fb880d64700be8000"
@@ -14,7 +12,8 @@ trending_programs_url = "https://npo.nl/start/api/domain/recommendation-collecti
 new_programs_url = "https://npo.nl/start/api/domain/recommendation-collection?collectionId=recent-free-v0&collectionIndex=4&collectionType=SERIES&includePremiumContent=true&layoutType=RECOMMENDATION&partyId=1%3Amjue2oeb%3A16f959774071426fb880d64700be8000"
 
 ## String for the data apis. Needs to be changed every month. Going to be automatic
-api_url_data_string = "84pYDQb1urckQuRTnDy1_"
+api_url_data_string = "IvIUng-0aGksq4mJ1Nu9D"
+
 
 @app.route('/')
 def index():
@@ -55,9 +54,9 @@ def index():
 
     return render_template("index.html", post_data=post_data)
 
+
 @app.route('/search_results', methods=['POST'])
 def search_results():
-
     if request.method == 'POST':
 
         search_term = request.form['search-term']
@@ -67,20 +66,19 @@ def search_results():
                    "subscriptionType": "anonymous",
                    "includePremiumContent": "true"}
 
-        search_results_api = requests.get("https://npo.nl/start/api/domain/search-collection-items", params=payload).json()[
+        search_results_api = \
+        requests.get("https://npo.nl/start/api/domain/search-collection-items", params=payload).json()[
             'items'][:24]
 
         post_data = {"items": {"image_url": [],
                                "title_image": [],
                                "series_slug": []}}
 
-
         len_list = len(search_results_api)
 
         for i in range(len(search_results_api)):
             image_url = None
             image_text_url = None
-
 
             for image in search_results_api[i]['images']:
                 if image['role'] == "title":
@@ -90,7 +88,6 @@ def search_results():
             if not image_text_url:
                 len_list -= 1
                 continue
-
 
             for image in search_results_api[i]['images']:
                 if image['role'] == "collection_item":
@@ -111,6 +108,7 @@ def search_results():
             print(post_data)
             return render_template("search_results.html", post_data=post_data, len=len_list)
 
+
 @app.route('/programs')
 def programs():
     program_slug = request.args.get('slug')
@@ -122,17 +120,17 @@ def programs():
         'tab': 'afleveringen'
     }
 
-    program_data = requests.get(f"https://npo.nl/start/_next/data/{api_url_data_string}/serie/{program_slug}/afleveringen.json", params=payload).json()['pageProps']['dehydratedState']['queries']
-
-
+    program_data = \
+    requests.get(f"https://npo.nl/start/_next/data/{api_url_data_string}/serie/{program_slug}/afleveringen.json",
+                 params=payload).json()['pageProps']['dehydratedState']['queries']
 
     post_data = {"items": {"image_url": "",
-                        "title_image": "",
-                        "program_title": "",
-                        "program_summary": "",
-                        "program_genre": "",
-                        'season_title': [],
-                        'season_guid': []}}
+                           "title_image": "",
+                           "program_title": "",
+                           "program_summary": "",
+                           "program_genre": "",
+                           'season_title': [],
+                           'season_guid': []}}
 
     program_title = program_data[0]['state']['data']['title']
     post_data['items']['program_title'] = program_title
@@ -157,15 +155,20 @@ def programs():
         if image['role'] == "collection_item":
             image_url = image['url']
             post_data['items']['image_url'] = image_url
-            
+
     if not image_url:
         for image in program_data[0]['state']['data']['images']:
             if image['role'] == "default":
                 image_url = image['url']
                 post_data['items']['image_url'] = image_url
 
+        ## yes another fix because nos keeps being stupid
+    try:
+        program_data_seasons = program_data[3]['state']['data']
+    except:
+        program_data_seasons = program_data[2]['state']['data']
 
-    for program_seasons in program_data[3]['state']['data']:
+    for program_seasons in program_data_seasons:
         print(program_seasons)
         try:
             program_season_label = program_seasons['label']
@@ -182,7 +185,7 @@ def programs():
                 ## another fix as nos programs does not use the same api for episode as series.
 
                 program_seasons_nos = requests.get(
-                    f"https://npo.nl/start/_next/data/84pYDQb1urckQuRTnDy1_/serie/{program_slug}/afleveringen.json",
+                    f"https://npo.nl/start/_next/data/{api_url_data_string}/serie/{program_slug}/afleveringen.json",
                     params=payload).json()['pageProps']['dehydratedState']['queries'][0]['state']['data']
 
                 # print(program_seasons_nos['guid'])
@@ -193,16 +196,13 @@ def programs():
                                        len=len(post_data['items']['season_title']))
 
         if program_season_label == None:
-            program_season_label =  f"Seizoen {program_seasons['seasonKey']}"
+            program_season_label = f"Seizoen {program_seasons['seasonKey']}"
 
-            
         post_data['items']['season_title'].append(program_season_label)
 
         program_season_guid = program_seasons['guid']
         print(program_season_guid)
         post_data['items']['season_guid'].append(program_season_guid)
-    
-    
 
     return render_template('program_info.html', post_data=post_data, len=len(post_data['items']['season_title']))
 
@@ -218,20 +218,22 @@ def about():
 
 
 # Made a proxy right here below as it was too slow to make javascript fetch data for each season. Every season has an own api link.
-# the api below gets an request from the javascript for the selected season. This makes it faster and doesnt result in a timeout from the npo api. 
+# the api below gets an request from the javascript for the selected season. This makes it faster and doesnt result in a timeout from the npo api.
 
 @app.route("/season-data-api")
 def season_data_api():
-    
     season_guid = request.args.get('season-slug')
-    print('slug '+season_guid)
+    print('slug ' + season_guid)
 
     if "nos" in season_guid:
         print('nos program found!')
-        print(f'https://npo.nl/start/api/domain/programs-by-series?includePremiumContent=true&seriesGuid={season_guid.replace("nos", "")}&limit=20&sort=-firstBroadcastDate')
-        cors_data = requests.get(f'https://npo.nl/start/api/domain/programs-by-series?includePremiumContent=true&seriesGuid={season_guid.replace("nos", "")}&limit=20&sort=-firstBroadcastDate').json()
+        print(
+            f'https://npo.nl/start/api/domain/programs-by-series?includePremiumContent=true&seriesGuid={season_guid.replace("nos", "")}&limit=20&sort=-firstBroadcastDate')
+        cors_data = requests.get(
+            f'https://npo.nl/start/api/domain/programs-by-series?includePremiumContent=true&seriesGuid={season_guid.replace("nos", "")}&limit=20&sort=-firstBroadcastDate').json()
     else:
-        cors_data = requests.get(f'https://npo.nl/start/api/domain/programs-by-season?ageRestriction=undefined&guid={season_guid}&type=timebound_series&includePremiumContent=true').json()
+        cors_data = requests.get(
+            f'https://npo.nl/start/api/domain/programs-by-season?ageRestriction=undefined&guid={season_guid}&type=timebound_series&includePremiumContent=true').json()
 
     return cors_data
 
@@ -239,16 +241,14 @@ def season_data_api():
 @app.route("/file-api", methods=["GET", "POST"])
 def file_api():
     if request.method == 'POST':
-
         program_slug = request.args.get('slug')
 
         selected_season = request.form['selected-season']
         selected_episode = request.form['selected-episode']
 
-        return send_file("video.mp4", as_attachment=True, download_name=f'{program_slug + "-S-" + selected_season + "-E-" + selected_episode}.mp4')
-
-
+        return send_file("video.mp4", as_attachment=True,
+                         download_name=f'{program_slug + "-S-" + selected_season + "-E-" + selected_episode}.mp4')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)

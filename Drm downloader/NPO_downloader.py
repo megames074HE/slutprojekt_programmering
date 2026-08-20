@@ -48,7 +48,7 @@ except FileExistsError:
 
 download_location = f'{download_path}series\\{stream_title.replace(" ", "_")}\\Season_{stream_season_number}'
 
-## Downloads at highest quality and decrypts automatically
+## Downloads at highest quality and decrypts automatically remove "#" before the line to use the downloading feature.
 #subprocess.run(f'N_m3u8DL-RE "{mpd_url}" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" -H "Accept: */*" -H "Origin: https://npo.nl" -H "Referer: https://npo.nl/" --key {stream_widevine_key} --use-shaka-packager -M format=mkv --auto-select --save-dir {download_location} --save-name {media_name}')
 
 
